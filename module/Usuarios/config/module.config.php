@@ -2,57 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Usuarios;
-
 use Laminas\Router\Http\Literal;
-use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Usuarios\Controller\UsuarioController;
 
 return [
     'router' => [
         'routes' => [
-            'home' => [
-                'type'    => Literal::class,
+            'usuarios' => [
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/',
+                    'route' => '/usuarios',
                     'defaults' => [
-                        'controller' => Controller\UsuarioController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\UsuarioController::class,
-                        'action'     => 'index',
+                        'controller' => UsuarioController::class,
+                        'action' => 'index',
                     ],
                 ],
             ],
         ],
     ],
+
     'controllers' => [
         'factories' => [
-            Controller\UsuarioController::class => InvokableFactory::class,
+            UsuarioController::class => InvokableFactory::class,
         ],
     ],
+
     'view_manager' => [
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'usuarios/usuario/index' => __DIR__ . '/../view/usuarios/usuario/index.phtml',
         ],
+
         'template_path_stack' => [
-            __DIR__ . '/../view',
+           'usuarios' => __DIR__ . '/../view',
         ],
     ],
 ];
